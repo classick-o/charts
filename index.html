@@ -18,7 +18,7 @@
       --dim:       #3d3d3d;
       --blue:      #3b82f6;
       --green:     #10b981;
-      --purple:    #c5f135;
+      --purple:    #3b82f6;
       --orange:    #10b981;
       --pink:      #3b82f6;
       --red:       #3b82f6;
@@ -147,9 +147,9 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(197,241,53,0.12);
-      border: 1px solid rgba(197,241,53,0.28);
-      color: #c5f135;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.28);
+      color: #93c5fd;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -184,8 +184,8 @@
 
     .note-box {
       margin-top: 24px;
-      background: rgba(197,241,53,0.07);
-      border: 1px solid rgba(197,241,53,0.18);
+      background: rgba(59,130,246,0.07);
+      border: 1px solid rgba(59,130,246,0.18);
       border-radius: 10px;
       padding: 18px 22px;
       font-size: 13px;
@@ -193,7 +193,7 @@
       line-height: 1.7;
     }
 
-    .note-box strong { color: #c5f135; }
+    .note-box strong { color: #93c5fd; }
 
     /* ───────────────────────────────────────────
        STATS STRIP
@@ -619,8 +619,8 @@
     }
 
     .step-parallel {
-      background: rgba(197,241,53,0.06);
-      border: 1px dashed rgba(197,241,53,0.3);
+      background: rgba(59,130,246,0.06);
+      border: 1px dashed rgba(59,130,246,0.3);
       border-radius: 9px;
       padding: 12px 14px;
       margin-bottom: 4px;
@@ -1258,7 +1258,7 @@
 
         <div class="step">
           <div class="step-left">
-            <div class="step-num" style="background:rgba(197,241,53,0.2);color:#c5f135">3</div>
+            <div class="step-num" style="background:rgba(59,130,246,0.2);color:#93c5fd">3</div>
             <div class="step-line" style="background:var(--border)"></div>
           </div>
           <div class="step-body">
@@ -1269,7 +1269,7 @@
 
         <div class="step">
           <div class="step-left">
-            <div class="step-num" style="background:rgba(197,241,53,0.2);color:#c5f135">4</div>
+            <div class="step-num" style="background:rgba(59,130,246,0.2);color:#93c5fd">4</div>
             <div class="step-line" style="background:var(--border)"></div>
           </div>
           <div class="step-parallel">
@@ -1284,7 +1284,7 @@
 
         <div class="step">
           <div class="step-left">
-            <div class="step-num" style="background:rgba(197,241,53,0.2);color:#c5f135">5</div>
+            <div class="step-num" style="background:rgba(59,130,246,0.2);color:#93c5fd">5</div>
             <div class="step-line" style="background:var(--border)"></div>
           </div>
           <div class="step-parallel">
@@ -1299,7 +1299,7 @@
 
         <div class="step">
           <div class="step-left">
-            <div class="step-num" style="background:rgba(197,241,53,0.2);color:#c5f135">6</div>
+            <div class="step-num" style="background:rgba(59,130,246,0.2);color:#93c5fd">6</div>
             <div class="step-line" style="background:var(--border)"></div>
           </div>
           <div class="step-body">
@@ -1314,7 +1314,7 @@
 
         <div class="step">
           <div class="step-left">
-            <div class="step-num" style="background:rgba(197,241,53,0.2);color:#c5f135">7</div>
+            <div class="step-num" style="background:rgba(59,130,246,0.2);color:#93c5fd">7</div>
             <div class="step-line" style="background:var(--border)"></div>
           </div>
           <div class="step-parallel">
@@ -1444,7 +1444,7 @@
           </div>
           <div class="step-body">
             <div class="step-label">Redis cache check</div>
-            <div class="step-desc">Key: <code style="color:#c5f135;font-size:11px">public_domain:{name}</code> · TTL: 1 hour<br>HIT → return immediately with X-Cache: HIT<br>MISS → query PostgreSQL WHERE is_public=TRUE</div>
+            <div class="step-desc">Key: <code style="color:#93c5fd;font-size:11px">public_domain:{name}</code> · TTL: 1 hour<br>HIT → return immediately with X-Cache: HIT<br>MISS → query PostgreSQL WHERE is_public=TRUE</div>
           </div>
         </div>
 
@@ -1475,7 +1475,7 @@
         </div>
 
         <div class="note-box" style="margin-top:16px">
-          <strong>Quality gate:</strong> Domain gets <code style="color:#c5f135;font-size:11px">is_public=TRUE</code> if status ≠ 'pending'. Auto-set by <code style="color:#c5f135;font-size:11px">DomainPublicService.update_is_public()</code> after every crawl. Every domain analyzed → auto-generates an indexable SEO page.
+          <strong>Quality gate:</strong> Domain gets <code style="color:#93c5fd;font-size:11px">is_public=TRUE</code> if status ≠ 'pending'. Auto-set by <code style="color:#93c5fd;font-size:11px">DomainPublicService.update_is_public()</code> after every crawl. Every domain analyzed → auto-generates an indexable SEO page.
         </div>
 
       </div>
