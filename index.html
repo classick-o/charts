@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScamInfo.ai — Platform Overview</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #08080f;
+      --surface:   #10101c;
+      --surface2:  #0d0d1a;
+      --border:    #1c1c2e;
+      --border2:   #141420;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --dim:       #374151;
+      --blue:      #3b82f6;
+      --green:     #10b981;
+      --purple:    #8b5cf6;
+      --orange:    #f59e0b;
+      --pink:      #ec4899;
+      --red:       #ef4444;
+      --amber:     #f59e0b;
+      --teal:      #14b8a6;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ───────────────────────────────────────────
+       HEADER
+    ─────────────────────────────────────────── */
+    .site-header {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .logo-text {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .header-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    /* ───────────────────────────────────────────
+       TAB NAVIGATION
+    ─────────────────────────────────────────── */
+    .tab-nav {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      gap: 0;
+    }
+
+    .tab-btn {
+      padding: 14px 22px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      letter-spacing: 0.01em;
+    }
+
+    .tab-btn:hover { color: var(--text); }
+
+    .tab-btn.active {
+      color: var(--text);
+      border-bottom-color: var(--purple);
+    }
+
+    .tab-icon {
+      font-size: 15px;
+      opacity: 0.7;
+    }
+
+    /* ───────────────────────────────────────────
+       TAB PANELS
+    ─────────────────────────────────────────── */
+    .tab-panel { display: none; padding: 48px 40px 80px; }
+    .tab-panel.active { display: block; }
+
+    /* ───────────────────────────────────────────
+       SHARED COMPONENTS
+    ─────────────────────────────────────────── */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(139,92,246,0.12);
+      border: 1px solid rgba(139,92,246,0.28);
+      color: #a78bfa;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #f1f5f9;
+      letter-spacing: -0.025em;
+      margin-bottom: 6px;
+    }
+
+    .page-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+
+    .page-sub em { color: #6b7280; font-style: normal; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .note-box {
+      margin-top: 24px;
+      background: rgba(139,92,246,0.07);
+      border: 1px solid rgba(139,92,246,0.18);
+      border-radius: 10px;
+      padding: 18px 22px;
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.7;
+    }
+
+    .note-box strong { color: #c4b5fd; }
+
+    /* ───────────────────────────────────────────
+       STATS STRIP
+    ─────────────────────────────────────────── */
+    .stats { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 20px;
+      flex: 1;
+      min-width: 110px;
+    }
+
+    .stat-val {
+      font-size: 23px;
+      font-weight: 800;
+      color: #f8fafc;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-lbl {
+      font-size: 11px;
+      color: var(--dim);
+      letter-spacing: 0.02em;
+    }
+
+    /* ───────────────────────────────────────────
+       GANTT CHART
+    ─────────────────────────────────────────── */
+    .gantt-head {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .gantt-head-lbl {
+      padding: 12px 20px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-right: 1px solid var(--border);
+    }
+
+    .months-row { display: grid; grid-template-columns: repeat(4, 1fr); }
+
+    .month-col {
+      padding: 12px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--dim);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .month-col:last-child { border-right: none; }
+
+    .m-tag {
+      font-size: 9px;
+      background: rgba(255,255,255,0.05);
+      color: #4b5563;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .g-phase {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+
+    .g-phase-lbl {
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-right: 1px solid var(--border);
+    }
+
+    .g-dot {
+      width: 8px; height: 8px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .g-phase-name {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .g-phase-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .g-phase-cell { border-right: 1px solid #12121e; }
+    .g-phase-cell:last-child { border-right: none; }
+
+    .g-task {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      border-bottom: 1px solid var(--border2);
+      min-height: 44px;
+    }
+
+    .g-task:last-child { border-bottom: none; }
+
+    .g-task-name {
+      padding: 0 20px;
+      font-size: 12.5px;
+      color: #6b7280;
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      line-height: 1.4;
+    }
+
+    .g-task-name small {
+      display: block;
+      font-size: 10.5px;
+      color: var(--dim);
+      margin-top: 1px;
+    }
+
+    .g-bar-area {
+      position: relative;
+      height: 44px;
+      background-image: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent calc(25% - 1px),
+        #141420 calc(25% - 1px),
+        #141420 25%
+      );
+    }
+
+    .gbar {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 9px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.01em;
+    }
+
+    .gb-blue   { background: rgba(59,130,246,0.22);  border: 1px solid rgba(59,130,246,0.4);  color: #93c5fd; }
+    .gb-green  { background: rgba(16,185,129,0.22);  border: 1px solid rgba(16,185,129,0.4);  color: #6ee7b7; }
+    .gb-purple { background: rgba(139,92,246,0.22);  border: 1px solid rgba(139,92,246,0.4);  color: #c4b5fd; }
+    .gb-orange { background: rgba(245,158,11,0.22);  border: 1px solid rgba(245,158,11,0.4);  color: #fcd34d; }
+    .gb-pink   { background: rgba(236,72,153,0.22);  border: 1px solid rgba(236,72,153,0.4);  color: #f9a8d4; }
+
+    .gantt-legend {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .leg-item { display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: var(--muted); }
+    .leg-dot  { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+    /* ───────────────────────────────────────────
+       ARCHITECTURE — LAYERS
+    ─────────────────────────────────────────── */
+    .arch-stack { display: flex; flex-direction: column; gap: 3px; margin-bottom: 48px; }
+
+    .arch-layer {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .arch-layer-lbl {
+      background: var(--surface2);
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      border-right: 3px solid currentColor;
+    }
+
+    .arch-layer-lbl .lname {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .arch-layer-lbl .ldesc {
+      font-size: 9.5px;
+      color: var(--dim);
+      line-height: 1.4;
+    }
+
+    .arch-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px 16px;
+      align-items: center;
+      background: var(--surface);
+    }
+
+    .chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 110px;
+    }
+
+    .chip-name { font-size: 12px; font-weight: 700; color: var(--text); }
+    .chip-tech { font-size: 10px; color: var(--dim); }
+    .chip-port { font-size: 10.5px; font-family: 'SF Mono', 'Fira Code', monospace; }
+
+    .chip-wide { min-width: 100%; flex-grow: 1; }
+
+    .layer-arrow {
+      text-align: center;
+      color: var(--border);
+      font-size: 18px;
+      padding: 2px 0;
+      line-height: 1;
+    }
+
+    .layer-arrow::before { content: '▼'; }
+
+    /* Layer color classes */
+    .l-gray   { color: #6b7280; }
+    .l-slate  { color: #475569; }
+    .l-blue   { color: var(--blue); }
+    .l-data   { color: #38bdf8; }
+    .l-purple { color: var(--purple); }
+    .l-amber  { color: var(--amber); }
+
+    /* ───────────────────────────────────────────
+       ARCHITECTURE — SERVICE GRID
+    ─────────────────────────────────────────── */
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 40px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .svc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border-left: 3px solid currentColor;
+    }
+
+    .svc-name  { font-size: 13px; font-weight: 700; color: var(--text); }
+    .svc-tech  { font-size: 11px; color: var(--muted); }
+    .svc-port  { font-size: 11px; font-family: 'SF Mono', 'Fira Code', monospace; color: var(--dim); }
+    .svc-role  { font-size: 11px; color: var(--dim); line-height: 1.4; margin-top: 2px; }
+
+    .svc-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.06);
+      color: var(--dim);
+      align-self: flex-start;
+    }
+
+    /* ───────────────────────────────────────────
+       FLOWS
+    ─────────────────────────────────────────── */
+    .flows-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) { .flows-grid { grid-template-columns: 1fr; } }
+
+    .flow-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flow-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 4px;
+      position: relative;
+    }
+
+    .step-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .step-line {
+      width: 2px;
+      flex: 1;
+      min-height: 16px;
+      margin: 3px 0;
+    }
+
+    .step-body {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 12px 14px;
+      margin-bottom: 4px;
+      flex: 1;
+    }
+
+    .step-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .step-desc {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .step-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .step-parallel {
+      background: rgba(139,92,246,0.06);
+      border: 1px dashed rgba(139,92,246,0.3);
+      border-radius: 9px;
+      padding: 12px 14px;
+      margin-bottom: 4px;
+      flex: 1;
+    }
+
+    .parallel-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--purple);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* ───────────────────────────────────────────
+       FOOTER
+    ─────────────────────────────────────────── */
+    .site-footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 11px;
+      color: #1f2937;
+      letter-spacing: 0.06em;
+      border-top: 1px solid var(--border2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════ HEADER -->
+  <header class="site-header">
+    <div class="logo">
+      <div class="logo-mark">S</div>
+      <div>
+        <div class="logo-text">ScamInfo.ai</div>
+        <div class="logo-sub">Online Fraud Detection Platform</div>
+      </div>
+    </div>
+    <div class="header-badge">Confidential · 2026</div>
+  </header>
+
+  <!-- ═══════════════════════════════════════ TABS -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('seo', this)">
+      <span class="tab-icon">📈</span> SEO Roadmap
+    </button>
+    <button class="tab-btn" onclick="switchTab('arch', this)">
+      <span class="tab-icon">🏗</span> Architecture
+    </button>
+    <button class="tab-btn" onclick="switchTab('flows', this)">
+      <span class="tab-icon">🔄</span> Key Flows
+    </button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TAB 1 — SEO ROADMAP
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div id="tab-seo" class="tab-panel active">
+
+    <div class="section-badge">⬡ &nbsp; SEO Strategy · Confidential · 2026</div>
+    <h1 class="page-title">SEO Strategy — Implementation Roadmap</h1>
+    <p class="page-sub">
+      <em>Online Fraud Detection Platform · </em>
+      90-day active implementation + 30-day optimization &amp; monitoring · Total: <em>4 months</em>
+    </p>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat"><div class="stat-val">4</div><div class="stat-lbl">Months Total</div></div>
+      <div class="stat"><div class="stat-val" style="color:var(--purple)">90</div><div class="stat-lbl">Days Active Build</div></div>
+      <div class="stat"><div class="stat-val" style="color:var(--green)">30</div><div class="stat-lbl">Days Optimization</div></div>
+      <div class="stat"><div class="stat-val">5</div><div class="stat-lbl">Strategy Pillars</div></div>
+      <div class="stat"><div class="stat-val">20+</div><div class="stat-lbl">Deliverables</div></div>
+      <div class="stat"><div class="stat-val" style="color:var(--orange)">7+</div><div class="stat-lbl">Data Sources</div></div>
+    </div>
+
+    <!-- Gantt -->
+    <div class="card">
+
+      <!-- Month headers -->
+      <div class="gantt-head">
+        <div class="gantt-head-lbl">Area / Deliverable</div>
+        <div class="months-row">
+          <div class="month-col">Month 1 <span class="m-tag">FOUNDATION</span></div>
+          <div class="month-col">Month 2 <span class="m-tag">CONTENT</span></div>
+          <div class="month-col">Month 3 <span class="m-tag">SCALE</span></div>
+          <div class="month-col">Month 4 <span class="m-tag">OPTIMIZE</span></div>
+        </div>
+      </div>
+
+      <!-- ── Phase 1: Technical Optimization ── -->
+      <div class="g-phase">
+        <div class="g-phase-lbl">
+          <div class="g-dot" style="background:var(--blue)"></div>
+          <span class="g-phase-name" style="color:var(--blue)">01 · Technical Optimization</span>
+        </div>
+        <div class="g-phase-grid">
+          <div class="g-phase-cell"></div><div class="g-phase-cell"></div>
+          <div class="g-phase-cell"></div><div class="g-phase-cell"></div>
+        </div>
+      </div>
+
+      <div class="g-task">
+        <div class="g-task-name">Schema Markup Suite<small>FAQPage · ClaimReview · HowTo · WebSite+SearchAction</small></div>
+        <div class="g-bar-area"><div class="gbar gb-blue" style="left:2%;width:24%">Schema Markup</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Performance &amp; Core Web Vitals<small>LCP &lt;500ms · WebP images · Edge caching</small></div>
+        <div class="g-bar-area"><div class="gbar gb-blue" style="left:2%;width:32%">Performance</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">RSS Feed + IndexNow Protocol<small>/feed.xml · Instant indexing on Bing/Google</small></div>
+        <div class="g-bar-area"><div class="gbar gb-blue" style="left:12%;width:18%">RSS + IndexNow</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Technical SEO Fixes<small>Custom 404 · BreadcrumbList · Alt text · Canonicals</small></div>
+        <div class="g-bar-area"><div class="gbar gb-blue" style="left:2%;width:20%">Tech Fixes</div></div>
+      </div>
+
+      <!-- ── Phase 2: Landing Pages & Content ── -->
+      <div class="g-phase">
+        <div class="g-phase-lbl">
+          <div class="g-dot" style="background:var(--green)"></div>
+          <span class="g-phase-name" style="color:var(--green)">02 · Landing Pages &amp; Content</span>
+        </div>
+        <div class="g-phase-grid">
+          <div class="g-phase-cell"></div><div class="g-phase-cell"></div>
+          <div class="g-phase-cell"></div><div class="g-phase-cell"></div>
+        </div>
+      </div>
+
+      <div class="g-task">
+        <div class="g-task-name">Problem-First Landing Pages<small>/check-website-scam · /website-safety-check · /verify-website-legit · RO versions</small></div>
+        <div class="g-bar-area"><div class="gbar gb-green" style="left:14%;width:34%">6+ Intent Landing Pages</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Trust &amp; Authority Pages<small>/about · /how-it-works · /security · /research</small></div>
+        <div class="g-bar-area"><div class="gbar gb-green" style="left:25%;width:24%">E-E-A-T Pages</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Live Data &amp; Glossary Pages<small>/statistics · /glossary · /threats/top · /latest-scams</small></div>
+        <div class="g-bar-area"><div class="gbar gb-green" style="left:25%;width:26%">Dynamic Data Pages</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Pillar Articles — 10 priority pieces<small>Phishing · OLX Scams · Crypto · WhatsApp · Vishing · Romance Scam…</small></div>
+        <div class="g-bar-area"><div class="gbar gb-green" style="left:25%;width:50%">Content Production (2500+ words each)</div></div>
+      </div>
+
+      <!-- ── Phase 3: Programmatic SEO ── -->
+      <div class="g-phase">
+        <div class="g-phase-lbl">
+          <div class="g-dot" style="background:var(--purple)"></div>
+          <span class="g-phase-name" style="color:var(--purple)">03 · Programmatic SEO</span>
+        </div>
+        <div class="g-phase-grid">
+          <div class="g-phase-cell"></div><div class="g-phase-cell"></div>
+          <div class="g-phase-cell"></div><div class="g-phase-cell"></div>
+        </div>
+      </div>
+
+      <div class="g-task">
+        <div class="g-task-name">Auto-Generated Domain Pages<small>/domain/{name} · ClaimReview Schema · Risk score · AI verdict</small></div>
+        <div class="g-bar-area"><div class="gbar gb-purple" style="left:27%;width:48%">Domain Page Scaling (100–500 pages/month)</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">UGC &amp; Review System<small>User reports · Ratings · Review Schema · Comments</small></div>
+        <div class="g-bar-area"><div class="gbar gb-purple" style="left:38%;width:36%">UGC Engine</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Scam Card Image Generation<small>Google Lens optimization · Logo + Verdict + Risk score per domain</small></div>
+        <div class="g-bar-area"><div class="gbar gb-purple" style="left:52%;width:22%">Google Lens Cards</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Top Threats &amp; Alerts Listings<small>/threats/top · /alerts · /latest-scams · NewsArticle Schema</small></div>
+        <div class="g-bar-area"><div class="gbar gb-purple" style="left:38%;width:26%">Live Threat Listings</div></div>
+      </div>
+
+      <!-- ── Phase 4: Automation Engine ── -->
+      <div class="g-phase">
+        <div class="g-phase-lbl">
+          <div class="g-dot" style="background:var(--orange)"></div>
+          <span class="g-phase-name" style="color:var(--orange)">04 · Automation Engine</span>
+        </div>
+        <div class="g-phase-grid">
+          <div class="g-phase-cell"></div><div class="g-phase-cell"></div>
+          <div class="g-phase-cell"></div><div class="g-phase-cell"></div>
+        </div>
+      </div>
+
+      <div class="g-task">
+        <div class="g-task-name">Threat Intel Content Pipeline<small>Auto-alerts from URLhaus/PhishTank · Regulator blacklist articles · Weekly top 10</small></div>
+        <div class="g-bar-area"><div class="gbar gb-orange" style="left:52%;width:24%">Auto-Alert Engine</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Monthly Report Automation<small>Threat stats · Category trends · PDF + indexable web version</small></div>
+        <div class="g-bar-area"><div class="gbar gb-orange" style="left:52%;width:46%">Report Generator</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">AI Content Draft System<small>Data → AI draft → editor review → publish · Auto-translate RO↔EN</small></div>
+        <div class="g-bar-area"><div class="gbar gb-orange" style="left:63%;width:35%">AI Draft Pipeline</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Newsletter &amp; Archive<small>Weekly digest · /newsletter/week-X · Return visitor signal</small></div>
+        <div class="g-bar-area"><div class="gbar gb-orange" style="left:76%;width:22%">Newsletter</div></div>
+      </div>
+
+      <!-- ── Phase 5: Authority & GEO ── -->
+      <div class="g-phase">
+        <div class="g-phase-lbl">
+          <div class="g-dot" style="background:var(--pink)"></div>
+          <span class="g-phase-name" style="color:var(--pink)">05 · Authority &amp; GEO</span>
+        </div>
+        <div class="g-phase-grid">
+          <div class="g-phase-cell"></div><div class="g-phase-cell"></div>
+          <div class="g-phase-cell"></div><div class="g-phase-cell"></div>
+        </div>
+      </div>
+
+      <div class="g-task">
+        <div class="g-task-name">GEO / AI Citation Optimization<small>Key Findings blocks · Wikipedia-style definitions · FAQ Schema · Dataset Schema</small></div>
+        <div class="g-bar-area"><div class="gbar gb-pink" style="left:14%;width:84%">GEO (Generative Engine Optimization) — ongoing</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Directory &amp; Community Presence<small>Product Hunt · AlternativeTo · Reddit r/cybersecurity · Quora · Google Business</small></div>
+        <div class="g-bar-area"><div class="gbar gb-pink" style="left:25%;width:24%">Directory Listings</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">"Scam-Free" Badge Program<small>Verified badge for legitimate sites · Dofollow backlink · Passive link growth</small></div>
+        <div class="g-bar-area"><div class="gbar gb-pink" style="left:52%;width:46%">Badge Program Launch</div></div>
+      </div>
+      <div class="g-task">
+        <div class="g-task-name">Institutional Partnerships<small>CERT-RO · Europol mentions · Guest posts · go4it.ro · wall-street.ro</small></div>
+        <div class="g-bar-area"><div class="gbar gb-pink" style="left:63%;width:35%">Media &amp; Partnerships</div></div>
+      </div>
+
+      <!-- Legend -->
+      <div class="gantt-legend">
+        <div class="leg-item"><div class="leg-dot" style="background:var(--blue)"></div> Technical Optimization</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div> Landing Pages &amp; Content</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--purple)"></div> Programmatic SEO</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--orange)"></div> Automation Engine</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--pink)"></div> Authority &amp; GEO</div>
+      </div>
+    </div><!-- /card -->
+
+    <div class="note-box">
+      <strong>Timeline:</strong> This roadmap spans <strong>4 months total</strong> — <strong>90 days</strong> of active implementation across 5 strategy pillars, followed by <strong>30 days</strong> of optimization and monitoring via Google Search Console.<br><br>
+      <strong>Unique advantage:</strong> ScamInfo.ai's proprietary data pipeline (7+ threat intelligence sources, multi-phase crawler, ML classification) enables content automation that competitors cannot replicate. Every domain analyzed becomes a new indexable page. Every threat detected becomes a publishable alert. Growth compounds automatically.
+    </div>
+
+  </div><!-- /tab-seo -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TAB 2 — ARCHITECTURE
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div id="tab-arch" class="tab-panel">
+
+    <div class="section-badge">⬡ &nbsp; Platform Architecture · Microservices · Docker Compose</div>
+    <h1 class="page-title">Platform Architecture</h1>
+    <p class="page-sub">
+      <em>Angular 20 SSR · FastAPI · PostgreSQL · Redis · Keycloak · Docker · 20 services</em>
+    </p>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat"><div class="stat-val">20</div><div class="stat-lbl">Microservices</div></div>
+      <div class="stat"><div class="stat-val" style="color:var(--blue)">6</div><div class="stat-lbl">Architecture Layers</div></div>
+      <div class="stat"><div class="stat-val" style="color:var(--purple)">16</div><div class="stat-lbl">DB Tables</div></div>
+      <div class="stat"><div class="stat-val" style="color:var(--green)">4</div><div class="stat-lbl">Crawler Phases</div></div>
+      <div class="stat"><div class="stat-val" style="color:var(--orange)">7+</div><div class="stat-lbl">Threat Intel Sources</div></div>
+    </div>
+
+    <!-- Architecture Stack -->
+    <div class="arch-stack">
+
+      <!-- Layer 0: External -->
+      <div class="arch-layer">
+        <div class="arch-layer-lbl l-gray">
+          <div class="lname">External</div>
+          <div class="ldesc">Internet traffic &amp; external data sources</div>
+        </div>
+        <div class="arch-chips">
+          <div class="chip">
+            <div class="chip-name">Users / Browsers</div>
+            <div class="chip-tech">HTTP/HTTPS requests</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">Google Bot</div>
+            <div class="chip-tech">SEO crawlers</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">External APIs</div>
+            <div class="chip-tech">URLhaus · PhishTank · FCA · VirusTotal · Google Places</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-arrow"></div>
+
+      <!-- Layer 1: Edge -->
+      <div class="arch-layer">
+        <div class="arch-layer-lbl l-slate">
+          <div class="lname">Edge</div>
+          <div class="ldesc">Single entry point for all traffic</div>
+        </div>
+        <div class="arch-chips">
+          <div class="chip chip-wide">
+            <div class="chip-name">Traefik v3.6 — Reverse Proxy &amp; Load Balancer</div>
+            <div class="chip-tech">TLS termination (Let's Encrypt) · Routing · HTTP→HTTPS redirect</div>
+            <div class="chip-port" style="color:var(--blue)">:80 (HTTP) &nbsp;·&nbsp; :443 (HTTPS) &nbsp;·&nbsp; :8080 (dashboard)</div>
+            <div style="font-size:10.5px;color:var(--dim);margin-top:6px;line-height:1.7">
+              scaminfo.ai → frontend:4000 &nbsp;|&nbsp; api.scaminfo.ai → api:8000 &nbsp;|&nbsp; auth.scaminfo.ai → keycloak:8080 &nbsp;|&nbsp; cdn.scaminfo.ai → minio:9000 &nbsp;|&nbsp; monitor.scaminfo.ai → grafana:3000
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-arrow"></div>
+
+      <!-- Layer 2: Presentation -->
+      <div class="arch-layer">
+        <div class="arch-layer-lbl l-blue">
+          <div class="lname">Presentation</div>
+          <div class="ldesc">User-facing services</div>
+        </div>
+        <div class="arch-chips">
+          <div class="chip">
+            <div class="chip-name">Frontend</div>
+            <div class="chip-tech">Angular 20 + Express SSR</div>
+            <div class="chip-port" style="color:var(--blue)">:4000</div>
+            <div class="chip-tech" style="margin-top:4px">Proxies /api/* → backend · SSR for SEO</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">Backend API</div>
+            <div class="chip-tech">FastAPI · Python 3.12</div>
+            <div class="chip-port" style="color:var(--blue)">:8000</div>
+            <div class="chip-tech" style="margin-top:4px">REST + WebSocket · 21 endpoint modules</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">Keycloak</div>
+            <div class="chip-tech">OAuth2 / OpenID Connect</div>
+            <div class="chip-port" style="color:var(--orange)">:8180</div>
+            <div class="chip-tech" style="margin-top:4px">JWT tokens · Realm: is-secured · RBAC</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">Payment Service</div>
+            <div class="chip-tech">FastAPI · Stripe</div>
+            <div class="chip-port" style="color:var(--green)">:8300</div>
+            <div class="chip-tech" style="margin-top:4px">Subscription billing · Webhooks</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-arrow"></div>
+
+      <!-- Layer 3: Data -->
+      <div class="arch-layer">
+        <div class="arch-layer-lbl l-data">
+          <div class="lname">Data Stores</div>
+          <div class="ldesc">Persistence, cache, search, storage</div>
+        </div>
+        <div class="arch-chips">
+          <div class="chip">
+            <div class="chip-name">PostgreSQL 16</div>
+            <div class="chip-tech">Primary relational DB</div>
+            <div class="chip-port" style="color:#38bdf8">:5432</div>
+            <div class="chip-tech" style="margin-top:4px">16 tables · SQLAlchemy 2.0 · asyncpg</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">PgBouncer</div>
+            <div class="chip-tech">Connection pooling</div>
+            <div class="chip-port" style="color:#38bdf8">:6432</div>
+            <div class="chip-tech" style="margin-top:4px">Max 2000 clients → 50 server connections</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">Redis 7</div>
+            <div class="chip-tech">Queue · Cache · Pub/Sub</div>
+            <div class="chip-port" style="color:var(--red)">:6379</div>
+            <div class="chip-tech" style="margin-top:4px">crawl_queue (LIST) · crawl_results (PUB/SUB)</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">Meilisearch v1.6</div>
+            <div class="chip-tech">Full-text search engine</div>
+            <div class="chip-port" style="color:var(--green)">:7700</div>
+            <div class="chip-tech" style="margin-top:4px">Knowledge base · Domain index</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">MinIO (S3)</div>
+            <div class="chip-tech">Object storage</div>
+            <div class="chip-port" style="color:var(--pink)">:9000 / :9001</div>
+            <div class="chip-tech" style="margin-top:4px">screenshots · evidence · raw-html buckets</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-arrow"></div>
+
+      <!-- Layer 4: Background Services -->
+      <div class="arch-layer">
+        <div class="arch-layer-lbl l-purple">
+          <div class="lname">Background</div>
+          <div class="ldesc">Async workers &amp; AI services</div>
+        </div>
+        <div class="arch-chips">
+          <div class="chip">
+            <div class="chip-name">Crawler</div>
+            <div class="chip-tech">Python + Playwright</div>
+            <div class="chip-port" style="color:var(--purple)">internal only</div>
+            <div class="chip-tech" style="margin-top:4px">4-phase pipeline · 13 specialized crawlers · max 25 concurrent</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">Data Fetcher</div>
+            <div class="chip-tech">Python + APScheduler</div>
+            <div class="chip-port" style="color:var(--purple)">:8200</div>
+            <div class="chip-tech" style="margin-top:4px">7 fetchers · cron jobs · threat intel sync every 4h</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">AI Service</div>
+            <div class="chip-tech">FastAPI + Ollama (qwen2.5)</div>
+            <div class="chip-port" style="color:var(--purple)">:8100 / :11434</div>
+            <div class="chip-tech" style="margin-top:4px">Risk analysis · Categorization · AI chat</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-arrow"></div>
+
+      <!-- Layer 5: Observability -->
+      <div class="arch-layer">
+        <div class="arch-layer-lbl l-amber">
+          <div class="lname">Observability</div>
+          <div class="ldesc">Metrics, logs, alerting</div>
+        </div>
+        <div class="arch-chips">
+          <div class="chip">
+            <div class="chip-name">Prometheus</div>
+            <div class="chip-tech">Metrics collection</div>
+            <div class="chip-port" style="color:var(--amber)">:9090</div>
+            <div class="chip-tech" style="margin-top:4px">Scrapes /metrics every 15s · 30 day retention</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">Grafana</div>
+            <div class="chip-tech">Dashboards &amp; alerting</div>
+            <div class="chip-port" style="color:var(--amber)">:3000</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">Loki + Promtail</div>
+            <div class="chip-tech">Log aggregation</div>
+            <div class="chip-port" style="color:var(--amber)">:3100</div>
+            <div class="chip-tech" style="margin-top:4px">Collects logs from all Docker containers</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">Exporters</div>
+            <div class="chip-tech">node-exporter · postgres-exporter · redis-exporter</div>
+            <div class="chip-port" style="color:var(--amber)">:9100 / :9187 / :9121</div>
+          </div>
+          <div class="chip">
+            <div class="chip-name">MailHog</div>
+            <div class="chip-tech">Email testing (dev only)</div>
+            <div class="chip-port" style="color:var(--amber)">:8025</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /arch-stack -->
+
+    <!-- Docker Network info -->
+    <div class="note-box">
+      <strong>Docker Network:</strong> All services run inside <code style="color:#c4b5fd;background:rgba(139,92,246,0.1);padding:1px 6px;border-radius:4px;font-size:12px">is-secured-net</code> — bridge network, subnet <code style="color:#c4b5fd;background:rgba(139,92,246,0.1);padding:1px 6px;border-radius:4px;font-size:12px">172.20.0.0/16</code>. Services communicate by name (e.g. <code style="color:#6ee7b7;font-size:12px">api:8000</code>, <code style="color:#6ee7b7;font-size:12px">redis:6379</code>). Only Traefik exposes ports 80/443 externally. <br><br>
+      <strong>Compose files:</strong> docker-compose.yml (base) · .dev.yml (port exposure, live reload) · .prod.yml (resource limits) · .ai.yml (GPU/Ollama) · .payment.yml (Stripe) · .scale.yml (horizontal scaling)
+    </div>
+
+    <!-- All Services Grid -->
+    <div class="section-title">All 20 Services</div>
+    <div class="service-grid">
+
+      <div class="svc-card" style="color:var(--blue)">
+        <div class="svc-badge">User-facing</div>
+        <div class="svc-name">Frontend</div>
+        <div class="svc-tech">Angular 20 + Express SSR · Tailwind CSS 4</div>
+        <div class="svc-port">:4000</div>
+        <div class="svc-role">UI rendering, SSR, API proxy, 14 feature modules</div>
+      </div>
+      <div class="svc-card" style="color:var(--blue)">
+        <div class="svc-badge">User-facing</div>
+        <div class="svc-name">Backend API</div>
+        <div class="svc-tech">FastAPI · Python 3.12 · asyncpg · SQLAlchemy 2</div>
+        <div class="svc-port">:8000</div>
+        <div class="svc-role">REST API, WebSocket, 21 endpoint modules, 19 services</div>
+      </div>
+      <div class="svc-card" style="color:#475569">
+        <div class="svc-badge">Edge</div>
+        <div class="svc-name">Traefik</div>
+        <div class="svc-tech">Traefik v3.6</div>
+        <div class="svc-port">:80 / :443 / :8080</div>
+        <div class="svc-role">Reverse proxy, TLS termination, routing, load balancing</div>
+      </div>
+      <div class="svc-card" style="color:var(--orange)">
+        <div class="svc-badge">Auth</div>
+        <div class="svc-name">Keycloak</div>
+        <div class="svc-tech">Keycloak (custom build)</div>
+        <div class="svc-port">:8180</div>
+        <div class="svc-role">OAuth2 IAM, JWT tokens, RBAC, realm: is-secured</div>
+      </div>
+      <div class="svc-card" style="color:var(--purple)">
+        <div class="svc-badge">Background</div>
+        <div class="svc-name">Crawler</div>
+        <div class="svc-tech">Python + Playwright</div>
+        <div class="svc-port">internal</div>
+        <div class="svc-role">4-phase domain crawling, queue worker, 13 crawlers</div>
+      </div>
+      <div class="svc-card" style="color:var(--purple)">
+        <div class="svc-badge">Background</div>
+        <div class="svc-name">Data Fetcher</div>
+        <div class="svc-tech">Python + APScheduler</div>
+        <div class="svc-port">:8200</div>
+        <div class="svc-role">Scheduled threat intel sync, 7 data fetchers</div>
+      </div>
+      <div class="svc-card" style="color:var(--purple)">
+        <div class="svc-badge">Background</div>
+        <div class="svc-name">AI Service</div>
+        <div class="svc-tech">FastAPI + Ollama (qwen2.5)</div>
+        <div class="svc-port">:8100 / :11434</div>
+        <div class="svc-role">AI threat analysis, categorization, chat responses</div>
+      </div>
+      <div class="svc-card" style="color:var(--green)">
+        <div class="svc-badge">Payment</div>
+        <div class="svc-name">Payment Service</div>
+        <div class="svc-tech">FastAPI · Stripe</div>
+        <div class="svc-port">:8300</div>
+        <div class="svc-role">Stripe payment processing, subscription management</div>
+      </div>
+      <div class="svc-card" style="color:#38bdf8">
+        <div class="svc-badge">Data</div>
+        <div class="svc-name">PostgreSQL 16</div>
+        <div class="svc-tech">PostgreSQL 16 · asyncpg</div>
+        <div class="svc-port">:5432</div>
+        <div class="svc-role">Primary relational DB, 16 tables, Alembic migrations</div>
+      </div>
+      <div class="svc-card" style="color:#38bdf8">
+        <div class="svc-badge">Data</div>
+        <div class="svc-name">PgBouncer</div>
+        <div class="svc-tech">PgBouncer</div>
+        <div class="svc-port">:6432</div>
+        <div class="svc-role">Connection pooling — max 2000 clients, 50 server connections</div>
+      </div>
+      <div class="svc-card" style="color:var(--red)">
+        <div class="svc-badge">Data</div>
+        <div class="svc-name">Redis 7</div>
+        <div class="svc-tech">Redis 7</div>
+        <div class="svc-port">:6379</div>
+        <div class="svc-role">Job queue (crawl_queue), cache, pub/sub (crawl_results)</div>
+      </div>
+      <div class="svc-card" style="color:var(--green)">
+        <div class="svc-badge">Data</div>
+        <div class="svc-name">Meilisearch</div>
+        <div class="svc-tech">Meilisearch v1.6</div>
+        <div class="svc-port">:7700</div>
+        <div class="svc-role">Full-text search — knowledge base, domain index</div>
+      </div>
+      <div class="svc-card" style="color:var(--pink)">
+        <div class="svc-badge">Data</div>
+        <div class="svc-name">MinIO</div>
+        <div class="svc-tech">MinIO (S3-compatible)</div>
+        <div class="svc-port">:9000 / :9001</div>
+        <div class="svc-role">Screenshots, evidence files, HTML snapshots (3 buckets)</div>
+      </div>
+      <div class="svc-card" style="color:var(--amber)">
+        <div class="svc-badge">Monitoring</div>
+        <div class="svc-name">Prometheus</div>
+        <div class="svc-tech">Prometheus v2.48</div>
+        <div class="svc-port">:9090</div>
+        <div class="svc-role">Scrapes /metrics every 15s from all services, alert rules</div>
+      </div>
+      <div class="svc-card" style="color:var(--amber)">
+        <div class="svc-badge">Monitoring</div>
+        <div class="svc-name">Grafana</div>
+        <div class="svc-tech">Grafana 10.2</div>
+        <div class="svc-port">:3000</div>
+        <div class="svc-role">Dashboards, alerting, log explorer (Loki integration)</div>
+      </div>
+      <div class="svc-card" style="color:var(--amber)">
+        <div class="svc-badge">Monitoring</div>
+        <div class="svc-name">Loki + Promtail</div>
+        <div class="svc-tech">Grafana Loki 2.9 + Promtail</div>
+        <div class="svc-port">:3100 (Loki)</div>
+        <div class="svc-role">Log aggregation from all Docker containers via Promtail</div>
+      </div>
+      <div class="svc-card" style="color:var(--amber)">
+        <div class="svc-badge">Monitoring</div>
+        <div class="svc-name">node-exporter</div>
+        <div class="svc-tech">Prometheus Node Exporter</div>
+        <div class="svc-port">:9100</div>
+        <div class="svc-role">Host system metrics (CPU, memory, disk, network)</div>
+      </div>
+      <div class="svc-card" style="color:var(--amber)">
+        <div class="svc-badge">Monitoring</div>
+        <div class="svc-name">postgres-exporter</div>
+        <div class="svc-tech">postgres_exporter</div>
+        <div class="svc-port">:9187</div>
+        <div class="svc-role">PostgreSQL metrics for Prometheus</div>
+      </div>
+      <div class="svc-card" style="color:var(--amber)">
+        <div class="svc-badge">Monitoring</div>
+        <div class="svc-name">redis-exporter</div>
+        <div class="svc-tech">redis_exporter</div>
+        <div class="svc-port">:9121</div>
+        <div class="svc-role">Redis metrics for Prometheus</div>
+      </div>
+      <div class="svc-card" style="color:#6b7280">
+        <div class="svc-badge">Dev only</div>
+        <div class="svc-name">MailHog</div>
+        <div class="svc-tech">MailHog</div>
+        <div class="svc-port">:8025</div>
+        <div class="svc-role">Email testing (catches outbound emails in development)</div>
+      </div>
+
+    </div><!-- /service-grid -->
+
+  </div><!-- /tab-arch -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TAB 3 — KEY FLOWS
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div id="tab-flows" class="tab-panel">
+
+    <div class="section-badge">⬡ &nbsp; Core Data Flows · Async Pipelines</div>
+    <h1 class="page-title">Key Flows</h1>
+    <p class="page-sub"><em>Domain validation pipeline, background sync, public SEO pages</em></p>
+
+    <div class="flows-grid">
+
+      <!-- ── FLOW 1: Domain Validation ── -->
+      <div>
+        <div class="flow-title">
+          Domain Validation Pipeline
+          <span class="flow-badge" style="background:rgba(59,130,246,0.15);color:#93c5fd">Core Flow</span>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(59,130,246,0.2);color:#93c5fd">1</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">User submits domain</div>
+            <div class="step-desc">Frontend → POST /api/v1/domains</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(59,130,246,0.2);color:#93c5fd">2</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">Backend API</div>
+            <div class="step-desc">Creates ValidationJob → PostgreSQL<br>Pushes to Redis crawl_queue<br>Opens WebSocket for real-time updates</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(139,92,246,0.2);color:#c4b5fd">3</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">Crawler picks up job</div>
+            <div class="step-desc">queue_listener.py BLPOP from crawl_queue<br>asyncio + semaphore — max 25 concurrent</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(139,92,246,0.2);color:#c4b5fd">4</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-parallel">
+            <div class="parallel-label">⚡ Phase 1a — Liveness</div>
+            <div class="step-pills">
+              <span class="pill">DNS resolution</span>
+              <span class="pill">HTTP reachability</span>
+              <span class="pill">Early exit: trusted / offline</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(139,92,246,0.2);color:#c4b5fd">5</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-parallel">
+            <div class="parallel-label">⚡ Phase 1b — Parallel</div>
+            <div class="step-pills">
+              <span class="pill">Regulator check (FCA, AMF, SEC…)</span>
+              <span class="pill">Content crawler</span>
+              <span class="pill">WHOIS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(139,92,246,0.2);color:#c4b5fd">6</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">Phase 2 — AI Categorization</div>
+            <div class="step-desc">HTTP POST → AI Service /classify/category<br>Returns: category + confidence score</div>
+            <div class="step-pills" style="margin-top:8px">
+              <span class="pill">bank</span><span class="pill">ecommerce</span>
+              <span class="pill">crypto</span><span class="pill">phishing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(139,92,246,0.2);color:#c4b5fd">7</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-parallel">
+            <div class="parallel-label">⚡ Phase 3 — Deep Parallel</div>
+            <div class="step-pills">
+              <span class="pill">SSL certificate</span>
+              <span class="pill">DNS records</span>
+              <span class="pill">ThreatIntel (URLhaus, VirusTotal…)</span>
+              <span class="pill">Reviews</span>
+              <span class="pill">TechStack</span>
+              <span class="pill">Screenshots → MinIO</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(239,68,68,0.2);color:#fca5a5">8</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">Risk Score Calculation</div>
+            <div class="step-desc">Aggregates all outputs → risk_score (0–100)</div>
+            <div class="step-pills" style="margin-top:8px">
+              <span class="pill" style="color:#86efac;border-color:rgba(16,185,129,0.3)">low</span>
+              <span class="pill" style="color:#fcd34d;border-color:rgba(245,158,11,0.3)">medium</span>
+              <span class="pill" style="color:#fdba74;border-color:rgba(249,115,22,0.3)">high</span>
+              <span class="pill" style="color:#fca5a5;border-color:rgba(239,68,68,0.3)">critical</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(16,185,129,0.2);color:#6ee7b7">9</div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">Publish result → Redis Pub/Sub</div>
+            <div class="step-desc">Backend saves to PostgreSQL + Meilisearch<br>WebSocket pushes real-time result to Frontend<br>DomainPublicService sets is_public = TRUE</div>
+          </div>
+        </div>
+
+        <div class="note-box" style="margin-top:16px">
+          <strong>Duration:</strong> ~15–45 seconds per domain depending on response times. Max 25 domains crawled concurrently.
+        </div>
+      </div>
+
+      <!-- ── FLOW 2: Background Sync + Public SEO ── -->
+      <div>
+        <div class="flow-title">
+          Background Data Sync
+          <span class="flow-badge" style="background:rgba(245,158,11,0.15);color:#fcd34d">Scheduled</span>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(245,158,11,0.2);color:#fcd34d">1</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">APScheduler — Data Fetcher Service</div>
+            <div class="step-desc">Cron-based jobs inside data-fetcher container</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(245,158,11,0.2);color:#fcd34d">2</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-parallel">
+            <div class="parallel-label">⚡ Parallel scheduled fetchers</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:2">
+              <div><span style="color:#fcd34d;font-weight:700;font-family:monospace">every 4h</span> &nbsp; ThreatIntelFetcher — URLhaus · PhishTank · OpenPhish · AbuseIPDB · VirusTotal</div>
+              <div><span style="color:#fcd34d;font-weight:700;font-family:monospace">06:00 </span> &nbsp;&nbsp; FCAFetcher — FCA RSS warnings feed</div>
+              <div><span style="color:#fcd34d;font-weight:700;font-family:monospace">05:00 </span> &nbsp;&nbsp; RegulatorFetcher — I-SCAN · ASIC</div>
+              <div><span style="color:#fcd34d;font-weight:700;font-family:monospace">02:00 </span> &nbsp;&nbsp; ReviewsFetcher — Google Places · SiteJabber</div>
+              <div><span style="color:#fcd34d;font-weight:700;font-family:monospace">every 6h</span> &nbsp; BlacklistFetcher — IP/domain blacklists</div>
+              <div><span style="color:#fcd34d;font-weight:700;font-family:monospace">04:00 </span> &nbsp;&nbsp; TechnologyFetcher — BuiltWith API</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(245,158,11,0.2);color:#fcd34d">3</div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">All fetchers write to 3 destinations</div>
+            <div class="step-pills" style="margin-top:4px">
+              <span class="pill" style="color:#93c5fd;border-color:rgba(59,130,246,0.3)">PostgreSQL (primary)</span>
+              <span class="pill" style="color:#fca5a5;border-color:rgba(239,68,68,0.3)">Redis (hot cache)</span>
+              <span class="pill" style="color:#86efac;border-color:rgba(16,185,129,0.3)">Meilisearch (index)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Public SEO Flow -->
+        <div class="flow-title" style="margin-top:36px">
+          Public Domain SEO Pages
+          <span class="flow-badge" style="background:rgba(16,185,129,0.15);color:#6ee7b7">No Auth</span>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(16,185,129,0.2);color:#6ee7b7">1</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">GET /domain/{name}</div>
+            <div class="step-desc">Google Bot or anonymous user · No AuthGuard</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(16,185,129,0.2);color:#6ee7b7">2</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">Angular SSR renders full HTML</div>
+            <div class="step-desc">Express server.ts → calls backend internally<br>GET http://api:8000/api/v1/public/domains/{name}<br>Injects OG tags, ClaimReview JSON-LD</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(16,185,129,0.2);color:#6ee7b7">3</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">Redis cache check</div>
+            <div class="step-desc">Key: <code style="color:#c4b5fd;font-size:11px">public_domain:{name}</code> · TTL: 1 hour<br>HIT → return immediately with X-Cache: HIT<br>MISS → query PostgreSQL WHERE is_public=TRUE</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(16,185,129,0.2);color:#6ee7b7">4</div>
+            <div class="step-line" style="background:var(--border)"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">Build PII-free public payload</div>
+            <div class="step-pills" style="margin-top:4px">
+              <span class="pill">risk_score</span><span class="pill">risk_level</span>
+              <span class="pill">ssl_valid</span><span class="pill">site_category</span>
+              <span class="pill">whois_summary (filtered)</span><span class="pill">technologies</span>
+              <span class="pill">screenshot_thumbnail</span><span class="pill">ClaimReview schema</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num" style="background:rgba(16,185,129,0.2);color:#6ee7b7">5</div>
+          </div>
+          <div class="step-body">
+            <div class="step-label">Cache in Redis + return to SSR</div>
+            <div class="step-desc">Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400<br>Full HTML returned to Google Bot or user browser</div>
+          </div>
+        </div>
+
+        <div class="note-box" style="margin-top:16px">
+          <strong>Quality gate:</strong> Domain gets <code style="color:#c4b5fd;font-size:11px">is_public=TRUE</code> if status ≠ 'pending'. Auto-set by <code style="color:#c4b5fd;font-size:11px">DomainPublicService.update_is_public()</code> after every crawl. Every domain analyzed → auto-generates an indexable SEO page.
+        </div>
+
+      </div>
+    </div><!-- /flows-grid -->
+
+  </div><!-- /tab-flows -->
+
+  <!-- ═══════════════════════════════════════ FOOTER -->
+  <footer class="site-footer">
+    SCAMINFO.AI · PLATFORM OVERVIEW · CONFIDENTIAL · 2026
+  </footer>
+
+  <script>
+    function switchTab(id, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
