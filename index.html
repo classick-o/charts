@@ -662,7 +662,11 @@
       .g-task-name small { margin-top: 2px; }
       .months-row { grid-template-columns: repeat(4, 110px); }
       .g-phase-grid { grid-template-columns: repeat(4, 110px); }
-      .arch-stack { overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 700px; }
+      .arch-stack { overflow-x: visible; min-width: 0; }
+      .arch-layer { grid-template-columns: 1fr; }
+      .arch-layer-lbl { border-right: none; border-bottom: 1px solid var(--border); padding: 12px 14px; }
+      .arch-chips { padding: 12px; gap: 8px; }
+      .chip { min-width: 0; width: 100%; }
     }
   </style>
 </head>
