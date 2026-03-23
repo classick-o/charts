@@ -101,6 +101,9 @@
       padding: 0 40px;
       display: flex;
       gap: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .tab-btn {
@@ -652,7 +655,7 @@
        MOBILE RESPONSIVE
     ─────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .tab-nav { padding: 0 2.5%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .tab-nav { padding: 0 2.5%; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-shrink: 0; }
       .tab-btn { padding: 12px 14px; font-size: 12px; white-space: nowrap; }
       .tab-panel { padding: 16px 2.5% 60px; }
       .page-title { font-size: 20px; }
