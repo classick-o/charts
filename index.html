@@ -650,14 +650,16 @@
        MOBILE RESPONSIVE
     ─────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .tab-nav { padding: 0 1%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .tab-nav { padding: 0 2.5%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
       .tab-btn { padding: 12px 14px; font-size: 12px; white-space: nowrap; }
-      .tab-panel { padding: 16px 1% 60px; }
+      .tab-panel { padding: 16px 2.5% 60px; }
       .page-title { font-size: 20px; }
       .card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .gantt-head, .g-phase, .g-task { grid-template-columns: 200px 500px; width: 700px; }
-      .months-row { grid-template-columns: repeat(4, 125px); }
-      .g-phase-grid { grid-template-columns: repeat(4, 125px); }
+      .gantt-head, .g-phase, .g-task { grid-template-columns: 260px 440px; width: 700px; }
+      .g-task-name { padding: 10px 14px; font-size: 12px; }
+      .g-task-name small { margin-top: 3px; }
+      .months-row { grid-template-columns: repeat(4, 110px); }
+      .g-phase-grid { grid-template-columns: repeat(4, 110px); }
       .arch-stack { overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 700px; }
     }
   </style>
@@ -700,10 +702,10 @@
       <div class="gantt-head">
         <div class="gantt-head-lbl">Area / Deliverable</div>
         <div class="months-row">
-          <div class="month-col">Month 1 <span class="m-tag">FOUNDATION</span></div>
-          <div class="month-col">Month 2 <span class="m-tag">CONTENT</span></div>
-          <div class="month-col">Month 3 <span class="m-tag">SCALE</span></div>
-          <div class="month-col">Month 4 <span class="m-tag">OPTIMIZE</span></div>
+          <div class="month-col">Month 1</div>
+          <div class="month-col">Month 2</div>
+          <div class="month-col">Month 3</div>
+          <div class="month-col">Month 4</div>
         </div>
       </div>
 
