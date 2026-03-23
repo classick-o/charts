@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git remote:*)",
+      "WebFetch(domain:classick-o.github.io)"
+    ]
+  }
+}

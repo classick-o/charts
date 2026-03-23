@@ -646,17 +646,6 @@
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════ HEADER -->
-  <header class="site-header">
-    <div class="logo">
-      <div class="logo-mark">S</div>
-      <div>
-        <div class="logo-text">ScamInfo.ai</div>
-        <div class="logo-sub">Online Fraud Detection Platform</div>
-      </div>
-    </div>
-    <div class="header-badge">2026</div>
-  </header>
 
   <!-- ═══════════════════════════════════════ TABS -->
   <nav class="tab-nav">
@@ -676,22 +665,6 @@
   ═══════════════════════════════════════════════════════════════════ -->
   <div id="tab-seo" class="tab-panel active">
 
-    <div class="section-badge">⬡ &nbsp; SEO Strategy · 2026</div>
-    <h1 class="page-title">SEO Strategy — Implementation Roadmap</h1>
-    <p class="page-sub">
-      <em>Online Fraud Detection Platform · </em>
-      90-day active implementation + 30-day optimization &amp; monitoring · Total: <em>4 months</em>
-    </p>
-
-    <!-- Stats -->
-    <div class="stats">
-      <div class="stat"><div class="stat-val">4</div><div class="stat-lbl">Months Total</div></div>
-      <div class="stat"><div class="stat-val" style="color:var(--purple)">90</div><div class="stat-lbl">Days Active Build</div></div>
-      <div class="stat"><div class="stat-val" style="color:var(--green)">30</div><div class="stat-lbl">Days Optimization</div></div>
-      <div class="stat"><div class="stat-val">5</div><div class="stat-lbl">Strategy Pillars</div></div>
-      <div class="stat"><div class="stat-val">20+</div><div class="stat-lbl">Deliverables</div></div>
-      <div class="stat"><div class="stat-val" style="color:var(--orange)">7+</div><div class="stat-lbl">Data Sources</div></div>
-    </div>
 
     <!-- Gantt -->
     <div class="card">
@@ -862,10 +835,6 @@
       </div>
     </div><!-- /card -->
 
-    <div class="note-box">
-      <strong>Timeline:</strong> This roadmap spans <strong>4 months total</strong> — <strong>90 days</strong> of active implementation across 5 strategy pillars, followed by <strong>30 days</strong> of optimization and monitoring via Google Search Console.<br><br>
-      <strong>Unique advantage:</strong> ScamInfo.ai's proprietary data pipeline (7+ threat intelligence sources, multi-phase crawler, ML classification) enables content automation that competitors cannot replicate. Every domain analyzed becomes a new indexable page. Every threat detected becomes a publishable alert. Growth compounds automatically.
-    </div>
 
   </div><!-- /tab-seo -->
 
@@ -875,20 +844,6 @@
   ═══════════════════════════════════════════════════════════════════ -->
   <div id="tab-arch" class="tab-panel">
 
-    <div class="section-badge">⬡ &nbsp; Platform Architecture · Microservices · Docker Compose</div>
-    <h1 class="page-title">Platform Architecture</h1>
-    <p class="page-sub">
-      <em>Angular 20 SSR · FastAPI · PostgreSQL · Redis · Keycloak · Docker · 20 services</em>
-    </p>
-
-    <!-- Stats -->
-    <div class="stats">
-      <div class="stat"><div class="stat-val">20</div><div class="stat-lbl">Microservices</div></div>
-      <div class="stat"><div class="stat-val" style="color:var(--blue)">6</div><div class="stat-lbl">Architecture Layers</div></div>
-      <div class="stat"><div class="stat-val" style="color:var(--purple)">16</div><div class="stat-lbl">DB Tables</div></div>
-      <div class="stat"><div class="stat-val" style="color:var(--green)">4</div><div class="stat-lbl">Crawler Phases</div></div>
-      <div class="stat"><div class="stat-val" style="color:var(--orange)">7+</div><div class="stat-lbl">Threat Intel Sources</div></div>
-    </div>
 
     <!-- Architecture Stack -->
     <div class="arch-stack">
@@ -1084,11 +1039,6 @@
 
     </div><!-- /arch-stack -->
 
-    <!-- Docker Network info -->
-    <div class="note-box">
-      <strong>Docker Network:</strong> All services run inside <code style="color:#c4b5fd;background:rgba(139,92,246,0.1);padding:1px 6px;border-radius:4px;font-size:12px">is-secured-net</code> — bridge network, subnet <code style="color:#c4b5fd;background:rgba(139,92,246,0.1);padding:1px 6px;border-radius:4px;font-size:12px">172.20.0.0/16</code>. Services communicate by name (e.g. <code style="color:#6ee7b7;font-size:12px">api:8000</code>, <code style="color:#6ee7b7;font-size:12px">redis:6379</code>). Only Traefik exposes ports 80/443 externally. <br><br>
-      <strong>Compose files:</strong> docker-compose.yml (base) · .dev.yml (port exposure, live reload) · .prod.yml (resource limits) · .ai.yml (GPU/Ollama) · .payment.yml (Stripe) · .scale.yml (horizontal scaling)
-    </div>
 
     <!-- All Services Grid -->
     <div class="section-title">All 20 Services</div>
@@ -1245,7 +1195,6 @@
   ═══════════════════════════════════════════════════════════════════ -->
   <div id="tab-flows" class="tab-panel">
 
-    <div class="section-badge">⬡ &nbsp; Core Data Flows · Async Pipelines</div>
     <h1 class="page-title">Key Flows</h1>
     <p class="page-sub"><em>Domain validation pipeline, background sync, public SEO pages</em></p>
 
@@ -1381,9 +1330,6 @@
           </div>
         </div>
 
-        <div class="note-box" style="margin-top:16px">
-          <strong>Duration:</strong> ~15–45 seconds per domain depending on response times. Max 25 domains crawled concurrently.
-        </div>
       </div>
 
       <!-- ── FLOW 2: Background Sync + Public SEO ── -->
@@ -1510,10 +1456,6 @@
 
   </div><!-- /tab-flows -->
 
-  <!-- ═══════════════════════════════════════ FOOTER -->
-  <footer class="site-footer">
-    SCAMINFO.AI · PLATFORM OVERVIEW · 2026
-  </footer>
 
   <script>
     function switchTab(id, btn) {
