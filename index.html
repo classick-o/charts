@@ -133,20 +133,6 @@
       flex-shrink: 0;
     }
 
-    /* ───────────────────────────────────────────
-       MOBILE RESPONSIVE
-    ─────────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .tab-nav { padding: 0 1%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .tab-btn { padding: 12px 14px; font-size: 12px; white-space: nowrap; }
-      .tab-panel { padding: 16px 1% 60px; }
-      .page-title { font-size: 20px; }
-      .card { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; }
-      .gantt-head, .g-phase, .g-task { grid-template-columns: 200px 500px; width: 700px; }
-      .months-row { grid-template-columns: repeat(4, 125px); }
-      .g-phase-grid { grid-template-columns: repeat(4, 125px); }
-      .arch-stack { overflow-x: auto; -webkit-overflow-scrolling: touch; width: max-content; min-width: 100%; }
-    }
 
     /* ───────────────────────────────────────────
        TAB PANELS
@@ -658,6 +644,21 @@
       color: #1f2937;
       letter-spacing: 0.06em;
       border-top: 1px solid var(--border2);
+    }
+
+    /* ───────────────────────────────────────────
+       MOBILE RESPONSIVE
+    ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .tab-nav { padding: 0 1%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .tab-btn { padding: 12px 14px; font-size: 12px; white-space: nowrap; }
+      .tab-panel { padding: 16px 1% 60px; }
+      .page-title { font-size: 20px; }
+      .card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .gantt-head, .g-phase, .g-task { grid-template-columns: 200px 500px; width: 700px; }
+      .months-row { grid-template-columns: repeat(4, 125px); }
+      .g-phase-grid { grid-template-columns: repeat(4, 125px); }
+      .arch-stack { overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 700px; }
     }
   </style>
 </head>
